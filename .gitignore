@@ -1,0 +1,13 @@
+﻿# Dependencies / OS
+.DS_Store
+Thumbs.db
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+
+# IDE / Gemini
+.gemini/
+.idea/
+.vscode/

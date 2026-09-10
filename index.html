@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#080808" />
+  <title>Ámbar Atelier — Arquitectura · Diseño · Construcción</title>
+  <meta name="description" content="Ámbar Atelier. Casas contemporáneas pensadas para el lugar, la luz y la forma de vivir." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Inter+Tight:wght@300;400;500&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#080808;
+      --bg2:#0d0d0d;
+      --gold:#c9903f;
+      --gold2:#e1b665;
+      --cream:#eee9df;
+      --muted:#938d83;
+      --line:rgba(238,233,223,.13);
+      --line-gold:rgba(201,144,63,.34);
+      --pad:clamp(20px,3.15vw,58px);
+      --max:1500px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--bg)}
+    body{margin:0;background:var(--bg);color:var(--cream);font-family:"DM Sans",system-ui,sans-serif;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    img{display:block;width:100%}
+    button{font:inherit}
+    ::selection{background:var(--gold);color:#0b0b0b}
+
+    .noise{position:fixed;inset:0;z-index:1000;pointer-events:none;opacity:.032;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.83' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+    .progress{position:fixed;top:0;left:0;width:0;height:2px;background:var(--gold);z-index:1200}
+
+    .nav{position:fixed;z-index:900;top:0;left:0;right:0;height:78px;padding:0 var(--pad);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;border-bottom:1px solid transparent;transition:.35s ease}
+    .nav.is-scrolled{background:rgba(8,8,8,.86);backdrop-filter:blur(14px);border-color:var(--line)}
+    .brand{display:flex;align-items:center;gap:11px;width:max-content}
+    .brand img{width:24px;height:31px;object-fit:contain}
+    .brand span{font-size:10px;letter-spacing:.24em;font-weight:500}
+    .nav-center{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#aaa399}
+    .nav-right{justify-self:end;display:flex;gap:22px;align-items:center}
+    .nav-link{font-size:10px;letter-spacing:.16em;text-transform:uppercase;position:relative;padding:8px 0}
+    .nav-link:after{content:"";position:absolute;left:0;right:100%;bottom:2px;height:1px;background:var(--gold);transition:right .25s ease}
+    .nav-link:hover:after{right:0}
+    .menu-toggle{display:none;background:0;border:0;color:var(--cream);padding:8px 0;font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+
+    .hero{min-height:100svh;padding:118px var(--pad) 34px;display:grid;grid-template-columns:minmax(0,.84fr) minmax(450px,1.16fr);gap:clamp(34px,5vw,84px);position:relative;max-width:var(--max);margin:auto}
+    .hero-copy{display:flex;flex-direction:column;justify-content:space-between;min-height:calc(100svh - 152px);position:relative;z-index:2}
+    .eyebrow{font-size:9px;letter-spacing:.23em;text-transform:uppercase;color:var(--gold);display:flex;gap:14px;align-items:center}
+    .eyebrow:before{content:"";width:34px;height:1px;background:var(--gold)}
+    .hero-title{margin:0 0 8vh;font-family:"Inter Tight",sans-serif;font-size:clamp(68px,7.6vw,126px);font-weight:300;line-height:.82;letter-spacing:-.068em;text-transform:uppercase}
+    .hero-title span{display:block;overflow:hidden}
+    .hero-title span b{display:block;font-weight:300;transform:translateY(105%);animation:up .9s cubic-bezier(.22,.78,.2,1) forwards}
+    .hero-title span:nth-child(2) b{animation-delay:.08s}
+    .hero-title span:nth-child(3) b{animation-delay:.16s;color:var(--gold)}
+    @keyframes up{to{transform:translateY(0)}}
+    .hero-bottom{border-top:1px solid var(--line);padding-top:18px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:end}
+    .hero-bottom p{margin:0;max-width:440px;color:#b0aaa0;font-size:13px;line-height:1.72}
+    .cta-line{font-size:10px;text-transform:uppercase;letter-spacing:.17em;display:inline-flex;align-items:center;gap:12px;white-space:nowrap}
+    .cta-line i{width:34px;height:34px;border:1px solid var(--line-gold);border-radius:50%;display:grid;place-items:center;font-style:normal;color:var(--gold);transition:.3s ease}
+    .cta-line:hover i{background:var(--gold);color:#111;transform:translate(3px,-3px)}
+
+    .hero-visual{position:relative;min-height:calc(100svh - 152px);overflow:hidden;background:#111}
+    .hero-visual img{height:100%;object-fit:cover;filter:brightness(.77) saturate(.78);transform:scale(1.03);transition:transform 1.6s cubic-bezier(.2,.75,.2,1)}
+    .hero-visual:hover img{transform:scale(1)}
+    .hero-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.35)),linear-gradient(90deg,rgba(0,0,0,.2),transparent 45%)}
+    .hero-badge{position:absolute;z-index:3;left:20px;bottom:20px;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:14px;color:#ece6dc}
+    .hero-badge .circle{width:54px;height:54px;border:1px solid rgba(255,255,255,.45);border-radius:50%;display:grid;place-items:center;font-family:"Libre Caslon Display",serif;font-size:22px;color:var(--gold2)}
+    .hero-badge small{display:block;font-size:9px;letter-spacing:.18em;text-transform:uppercase;line-height:1.6;color:#d4cec4}
+
+    .ribbon{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:15px 0}
+    .ribbon-track{display:inline-flex;gap:42px;animation:marquee 22s linear infinite;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#a39d93}
+    .ribbon b{font-weight:400;color:var(--gold)}
+    @keyframes marquee{to{transform:translateX(-50%)}}
+
+    .intro{max-width:var(--max);margin:auto;padding:15vh var(--pad) 13vh;display:grid;grid-template-columns:.62fr 1.38fr;gap:7vw;align-items:start}
+    .section-label{position:sticky;top:115px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding-top:8px}
+    .intro h2{margin:0;font-family:"Inter Tight",sans-serif;font-size:clamp(52px,6.8vw,110px);line-height:.92;letter-spacing:-.058em;font-weight:300;max-width:1050px}
+    .intro h2 em{font-family:"Libre Caslon Display",serif;font-weight:400;color:var(--gold);font-style:normal}
+    .intro-body{margin:46px 0 0 38%;max-width:550px;color:#aaa49a;font-size:15px;line-height:1.8}
+
+    .split{max-width:var(--max);margin:auto;padding:0 var(--pad) 16vh;display:grid;grid-template-columns:1.18fr .82fr;gap:clamp(24px,4vw,60px);align-items:stretch}
+    .split-media{min-height:680px;position:relative;overflow:hidden;background:#121212}
+    .split-media img{height:100%;object-fit:cover;filter:brightness(.78) saturate(.82);transform:scale(1.045)}
+    .split-media:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.32),transparent 50%)}
+    .split-caption{position:absolute;z-index:3;left:20px;right:20px;bottom:18px;border-top:1px solid rgba(255,255,255,.28);padding-top:12px;display:flex;justify-content:space-between;gap:20px;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#ddd7cc}
+    .split-copy{background:#0d0d0d;border-top:1px solid var(--line-gold);padding:34px clamp(24px,3vw,46px);display:flex;flex-direction:column;justify-content:space-between}
+    .split-copy .num{font-family:"Libre Caslon Display",serif;font-size:clamp(90px,10vw,150px);line-height:.8;color:var(--gold);font-weight:400}
+    .split-copy h3{font-family:"Inter Tight",sans-serif;font-size:clamp(40px,4.8vw,76px);line-height:.95;letter-spacing:-.05em;font-weight:300;margin:80px 0 24px}
+    .split-copy p{margin:0;color:#a8a298;font-size:13px;line-height:1.8;max-width:430px}
+
+    .services{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#090909}
+    .services-inner{max-width:var(--max);margin:auto;padding:0 var(--pad)}
+    .services-head{padding:100px 0 50px;display:grid;grid-template-columns:.62fr 1.38fr;gap:7vw}
+    .services-head h2{margin:0;font-family:"Inter Tight",sans-serif;font-size:clamp(52px,6vw,96px);font-weight:300;line-height:.92;letter-spacing:-.055em}
+    .service{display:grid;grid-template-columns:90px 1fr minmax(250px,430px);gap:30px;align-items:center;border-top:1px solid var(--line);min-height:170px;padding:30px 0;position:relative}
+    .service:before{content:"";position:absolute;left:0;right:0;bottom:0;height:0;background:var(--gold);transition:.4s cubic-bezier(.22,.78,.2,1)}
+    .service:hover:before{height:100%}
+    .service>*{position:relative;z-index:2;transition:color .25s}
+    .service:hover>*{color:#111}
+    .service .n{font-size:10px;letter-spacing:.18em;color:var(--gold)}
+    .service h3{margin:0;font-family:"Inter Tight",sans-serif;font-size:clamp(36px,4.4vw,66px);font-weight:300;letter-spacing:-.045em}
+    .service p{margin:0;color:#9c968c;font-size:12px;line-height:1.7}
+
+    .living{max-width:var(--max);margin:auto;padding:15vh var(--pad)}
+    .living-top{display:grid;grid-template-columns:.7fr 1.3fr;gap:7vw;margin-bottom:70px}
+    .living-top h2{margin:0;font-family:"Inter Tight",sans-serif;font-size:clamp(48px,6vw,98px);font-weight:300;line-height:.92;letter-spacing:-.055em}
+    .living-top p{margin:0;align-self:end;max-width:620px;color:#a8a298;font-size:14px;line-height:1.8}
+    .gallery{display:grid;grid-template-columns:1.08fr .92fr;gap:18px}
+    .gallery-col{display:grid;gap:18px}
+    .photo{position:relative;overflow:hidden;background:#111;min-height:460px}
+    .photo.tall{min-height:860px}
+    .photo img{height:100%;object-fit:cover;filter:brightness(.77) saturate(.78);transition:transform 1.2s cubic-bezier(.2,.75,.2,1),filter .45s ease;transform:scale(1.025)}
+    .photo:hover img{transform:scale(1);filter:brightness(.84) saturate(.9)}
+    .photo-label{position:absolute;z-index:3;left:16px;right:16px;bottom:14px;border-top:1px solid rgba(255,255,255,.3);padding-top:10px;display:flex;justify-content:space-between;gap:15px;font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:#e7e0d6}
+    .photo:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.42),transparent 35%);pointer-events:none}
+
+    .types{padding:2vh 0 13vh;overflow:hidden}
+    .types-row{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:23px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:30px;transition:.3s ease}
+    .types-row:hover{background:var(--gold);color:#101010}
+    .types-row span:first-child{font-family:"Inter Tight",sans-serif;font-size:clamp(40px,6vw,95px);font-weight:300;letter-spacing:-.055em;line-height:.9}
+    .types-row small{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);transition:.3s}
+    .types-row:hover small{color:#111}
+
+    .process{max-width:var(--max);margin:auto;padding:13vh var(--pad) 16vh;display:grid;grid-template-columns:.76fr 1.24fr;gap:8vw}
+    .process-title{position:sticky;top:120px;height:max-content}
+    .process-title h2{font-family:"Inter Tight",sans-serif;font-size:clamp(50px,6.5vw,100px);font-weight:300;line-height:.9;letter-spacing:-.058em;margin:0 0 26px}
+    .process-title p{margin:0;max-width:360px;color:#969087;font-size:13px;line-height:1.75}
+    .step{display:grid;grid-template-columns:76px 1fr;gap:22px;padding:34px 0;border-top:1px solid var(--line)}
+    .step:first-child{border-top-color:var(--line-gold)}
+    .step .n{font-family:"Libre Caslon Display",serif;font-size:26px;color:var(--gold)}
+    .step h3{font-size:25px;font-weight:400;margin:0 0 10px;letter-spacing:-.02em}
+    .step p{margin:0;color:#979188;max-width:560px;font-size:13px;line-height:1.75}
+
+    .contact{background:var(--gold);color:#101010;min-height:78vh;padding:70px var(--pad) 28px;display:flex;flex-direction:column;justify-content:space-between}
+    .contact-inner{max-width:var(--max);width:100%;margin:auto;display:flex;flex-direction:column;justify-content:space-between;flex:1}
+    .contact-top{display:flex;justify-content:space-between;border-bottom:1px solid rgba(16,16,16,.28);padding-bottom:15px;font-size:9px;text-transform:uppercase;letter-spacing:.18em}
+    .contact h2{font-family:"Inter Tight",sans-serif;font-size:clamp(78px,12vw,185px);font-weight:300;line-height:.79;letter-spacing:-.07em;text-transform:uppercase;margin:7vh 0 6vh;max-width:1200px}
+    .contact h2 em{font-family:"Libre Caslon Display",serif;font-style:normal;text-transform:none;font-weight:400}
+    .contact-actions{display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
+    .contact-actions p{margin:0;max-width:430px;font-size:13px;line-height:1.7}
+    .contact-btn{border:1px solid #111;border-radius:999px;padding:16px 22px;font-size:10px;text-transform:uppercase;letter-spacing:.16em;display:inline-flex;align-items:center;gap:16px;transition:.25s}
+    .contact-btn:hover{background:#111;color:var(--gold);transform:translateY(-3px)}
+    .footer{max-width:var(--max);width:100%;margin:55px auto 0;border-top:1px solid rgba(16,16,16,.25);padding-top:18px;display:flex;justify-content:space-between;gap:30px;font-size:9px;letter-spacing:.13em;text-transform:uppercase}
+
+    .reveal{opacity:0;transform:translateY(34px);transition:opacity .8s ease,transform .8s cubic-bezier(.22,.78,.2,1)}
+    .reveal.visible{opacity:1;transform:none}
+
+    @media(max-width:980px){
+      .nav{grid-template-columns:1fr auto}.nav-center{display:none}.nav-right .nav-link:first-child{display:none}
+      .hero{grid-template-columns:1fr;min-height:auto;padding-top:105px}.hero-copy{min-height:68svh}.hero-title{font-size:clamp(64px,14vw,122px);margin:8vh 0}.hero-visual{min-height:66svh}
+      .intro,.services-head,.process{grid-template-columns:1fr}.section-label{position:static}.intro-body{margin-left:18%}
+      .split{grid-template-columns:1fr}.split-media{min-height:68svh}.split-copy{min-height:520px}.split-copy h3{margin-top:60px}
+      .service{grid-template-columns:60px 1fr}.service p{grid-column:2}
+      .living-top{grid-template-columns:1fr}.living-top p{max-width:620px}.gallery{grid-template-columns:1fr}.photo.tall{min-height:68svh}.photo{min-height:56svh}
+      .process-title{position:static}
+    }
+    @media(max-width:620px){
+      :root{--pad:17px}
+      .nav{height:67px}.brand span{display:none}.nav-right{gap:14px}.nav-right .nav-link{display:none}.menu-toggle{display:block}
+      .hero{padding-top:87px;padding-bottom:20px;gap:22px}.hero-copy{min-height:64svh}.hero-title{font-size:18vw;line-height:.84;margin:7vh 0 5vh}.hero-bottom{grid-template-columns:1fr}.cta-line{margin-top:4px}.hero-visual{min-height:58svh}.hero-badge .circle{width:46px;height:46px}
+      .intro{padding-top:110px;padding-bottom:100px}.intro h2{font-size:13.6vw}.intro-body{margin:35px 0 0;font-size:13px}
+      .split{padding-bottom:110px}.split-media{min-height:64svh}.split-copy{min-height:460px;padding:28px 22px}.split-copy .num{font-size:28vw}.split-copy h3{font-size:12vw}
+      .services-head{padding:78px 0 40px}.services-head h2{font-size:13vw}.service{grid-template-columns:44px 1fr;gap:14px;min-height:150px}.service h3{font-size:11.5vw}.service p{font-size:11px}
+      .living{padding-top:100px;padding-bottom:100px}.living-top{margin-bottom:38px}.living-top h2{font-size:13vw}.living-top p{font-size:12px}.photo.tall,.photo{min-height:60svh}
+      .types{padding-bottom:90px}.types-row{padding:20px 17px}.types-row span:first-child{font-size:12vw}.types-row small{max-width:100px;text-align:right;line-height:1.6}
+      .process{padding-top:90px;padding-bottom:100px}.process-title h2{font-size:13vw}.step{grid-template-columns:46px 1fr;gap:12px}.step h3{font-size:21px}
+      .contact{min-height:72svh;padding-top:46px}.contact h2{font-size:19vw}.contact-actions{align-items:flex-start;flex-direction:column}.footer{flex-direction:column;gap:10px}
+    }
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}.hero-title span b{transform:none}}
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="progress" id="progress"></div>
+
+  <header class="nav" id="nav">
+    <a href="#inicio" class="brand" aria-label="Ámbar Atelier">
+      <img src="assets/mark.png" alt=""><span>ÁMBAR ATELIER</span>
+    </a>
+    <div class="nav-center">Arquitectura · Diseño · Construcción</div>
+    <div class="nav-right">
+      <a class="nav-link" href="#proyectos">Proyectos</a>
+      <a class="nav-link" href="#contacto">Conversemos</a>
+      <button class="menu-toggle" type="button" onclick="document.querySelector('#contacto').scrollIntoView({behavior:'smooth'})">Contacto</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <div class="eyebrow">Ámbar Atelier</div>
+        <h1 class="hero-title" aria-label="Casas para vivirlas">
+          <span><b>Casas</b></span>
+          <span><b>para</b></span>
+          <span><b>vivirlas.</b></span>
+        </h1>
+        <div class="hero-bottom">
+          <p>Diseñamos y construimos viviendas contemporáneas pensadas para el terreno, la luz y la forma de vivir de cada familia.</p>
+          <a class="cta-line" href="#proyectos">Ver enfoque <i>↘</i></a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NDEwNjE3NjY%3D/original/82812ad0-27fc-4833-abab-1bf9cf40e446.jpeg" alt="Casa contemporánea de madera integrada al paisaje">
+        <div class="hero-badge"><div class="circle">A</div><small>Madera · luz · paisaje<br>Una casa que se siente propia</small></div>
+      </div>
+    </section>
+
+    <div class="ribbon" aria-hidden="true">
+      <div class="ribbon-track">
+        <span>Arquitectura residencial</span><b>•</b><span>Casa de playa</span><b>•</b><span>Casa en parcela</span><b>•</b><span>Segunda vivienda</span><b>•</b><span>Diseño + construcción</span><b>•</b>
+        <span>Arquitectura residencial</span><b>•</b><span>Casa de playa</span><b>•</b><span>Casa en parcela</span><b>•</b><span>Segunda vivienda</span><b>•</b><span>Diseño + construcción</span><b>•</b>
+      </div>
+    </div>
+
+    <section class="intro reveal">
+      <div class="section-label">01 — Nuestra mirada</div>
+      <div>
+        <h2>Diseño que se nota en <em>cómo se vive,</em> no solo en cómo se ve.</h2>
+        <p class="intro-body">Una buena casa responde al lugar antes que a una moda: dónde entra el sol, de dónde viene el viento, qué vista vale la pena abrir y dónde conviene protegerse. Ahí empieza el diseño.</p>
+      </div>
+    </section>
+
+    <section class="split reveal" id="proyectos">
+      <div class="split-media">
+        <img src="https://landarquitectos.com/imagenes/proyectos/1510393501_92.jpg" alt="Casa de madera y piedra frente al paisaje costero">
+        <div class="split-caption"><span>Vivienda contemporánea</span><span>Madera · piedra · terraza</span></div>
+      </div>
+      <div class="split-copy">
+        <div class="num">01</div>
+        <div>
+          <h3>La casa parte por el lugar.</h3>
+          <p>Terrenos con pendiente, viento, vistas abiertas, vegetación o exposición costera piden decisiones concretas. La arquitectura puede aprovechar esas condiciones para crear espacios cálidos, protegidos y fáciles de habitar.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="servicios">
+      <div class="services-inner">
+        <div class="services-head reveal">
+          <div class="section-label">02 — Qué hacemos</div>
+          <h2>De la primera idea<br>a la casa terminada.</h2>
+        </div>
+        <article class="service reveal"><div class="n">01</div><h3>Arquitectura</h3><p>Diseño de la vivienda según terreno, orientación, programa, materialidad y presupuesto.</p></article>
+        <article class="service reveal"><div class="n">02</div><h3>Diseño</h3><p>Distribuciones, terminaciones y decisiones que construyen una casa coherente y agradable de vivir.</p></article>
+        <article class="service reveal"><div class="n">03</div><h3>Construcción</h3><p>Desarrollo y ejecución de obra cuidando que el proyecto llegue construido con la intención con que fue pensado.</p></article>
+      </div>
+    </section>
+
+    <section class="living">
+      <div class="living-top reveal">
+        <div class="section-label">03 — Materialidad</div>
+        <div>
+          <h2>Menos lujo aparente.<br>Más calidez real.</h2>
+          <p>Madera, hormigón, acero, vidrio, sombras profundas, terrazas y espacios interiores conectados con el exterior. Materiales honestos que funcionan bien en casas de costa, campo y parcela, sin encerrar la propuesta en un solo estilo.</p>
+        </div>
+      </div>
+      <div class="gallery">
+        <figure class="photo tall reveal">
+          <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MzEyNjU0NjY%3D/original/a6e93556-f57d-4873-ad0f-b6e2c2a8fb4b.jpeg" alt="Casa elevada de madera con grandes ventanales">
+          <figcaption class="photo-label"><span>Volumen elevado</span><span>Vista + pendiente</span></figcaption>
+        </figure>
+        <div class="gallery-col">
+          <figure class="photo reveal">
+            <img src="https://images.unsplash.com/photo-1766848752456-db83f7439758?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=82&w=1800" alt="Interior cálido de vivienda contemporánea">
+            <figcaption class="photo-label"><span>Interior</span><span>Luz + madera</span></figcaption>
+          </figure>
+          <figure class="photo reveal">
+            <img src="https://images.unsplash.com/photo-1757727789678-5e98d8020f16?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=82&w=1800" alt="Arquitectura contemporánea de geometría limpia">
+            <figcaption class="photo-label"><span>Exterior</span><span>Materia + sombra</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="types" aria-label="Tipos de proyecto">
+      <a class="types-row" href="#contacto"><span>Casa en parcela</span><small>Terreno · vistas · privacidad</small></a>
+      <a class="types-row" href="#contacto"><span>Casa de playa</span><small>Sol · viento · terrazas</small></a>
+      <a class="types-row" href="#contacto"><span>Segunda vivienda</span><small>Simple · cálida · funcional</small></a>
+      <a class="types-row" href="#contacto"><span>Remodelación</span><small>Reordenar · ampliar · renovar</small></a>
+    </section>
+
+    <section class="process">
+      <div class="process-title reveal">
+        <div class="section-label" style="position:static;margin-bottom:28px">04 — Proceso</div>
+        <h2>Claro desde<br>el comienzo.</h2>
+        <p>El proyecto se ordena por etapas para tomar buenas decisiones antes de construir y mantener una conversación directa durante todo el proceso.</p>
+      </div>
+      <div>
+        <article class="step reveal"><div class="n">01</div><div><h3>Conocemos el terreno y la idea</h3><p>Programa, necesidades, referencias, presupuesto y las condiciones reales del lugar.</p></div></article>
+        <article class="step reveal"><div class="n">02</div><div><h3>Diseñamos la propuesta</h3><p>Volumen, distribución, orientación, materialidad y relación entre interior y exterior.</p></div></article>
+        <article class="step reveal"><div class="n">03</div><div><h3>Desarrollamos el proyecto</h3><p>Definiciones técnicas, documentación y coordinación necesaria para avanzar a obra.</p></div></article>
+        <article class="step reveal"><div class="n">04</div><div><h3>Construimos</h3><p>La propuesta pasa del papel al terreno manteniendo el criterio de diseño y las prioridades del proyecto.</p></div></article>
+      </div>
+    </section>
+
+    <section class="contact" id="contacto">
+      <div class="contact-inner">
+        <div class="contact-top"><span>Ámbar Atelier</span><span>Arquitectura · Diseño · Construcción</span></div>
+        <h2>Hablemos de<br><em>tu casa.</em></h2>
+        <div class="contact-actions">
+          <p>¿Tienes un terreno, una idea o una casa que quieres transformar? Cuéntanos qué estás imaginando y conversemos desde ahí.</p>
+          <a class="contact-btn" href="mailto:contacto@ambaratelier.cl">Iniciar conversación <span>↗</span></a>
+        </div>
+        <footer class="footer"><span>Diseñamos espacios. Creamos hogares.</span><span>© 2026 Ámbar Atelier</span></footer>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const nav=document.getElementById('nav');
+    const progress=document.getElementById('progress');
+    const onScroll=()=>{
+      nav.classList.toggle('is-scrolled',scrollY>25);
+      const h=document.documentElement.scrollHeight-innerHeight;
+      progress.style.width=(h?scrollY/h*100:0)+'%';
+    };
+    addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+    const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Very subtle image drift: keeps the editorial movement without making the site feel like an architecture-showreel.
+    const media=[...document.querySelectorAll('.split-media img,.photo img')];
+    addEventListener('scroll',()=>{
+      if(innerWidth<700)return;
+      media.forEach(img=>{
+        const r=img.parentElement.getBoundingClientRect();
+        if(r.bottom>0&&r.top<innerHeight){
+          const d=(r.top-innerHeight/2)/innerHeight;
+          img.style.transform=`scale(1.035) translateY(${d*9}px)`;
+        }
+      })
+    },{passive:true});
+  </script>
+</body>
+</html>
